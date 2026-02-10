@@ -9,6 +9,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
+  --font-display: var(--font-outfit);
 
   /* shadcn semantic tokens */
   --color-sidebar-ring: var(--sidebar-ring);
@@ -61,8 +62,14 @@
   --color-brand-900: #1e3a8a;
   --color-brand-950: #172554;
 
+  /* Cyan accent for data emphasis */
+  --color-cyan-300: #67e8f9;
+  --color-cyan-400: #22d3ee;
+  --color-cyan-500: #06b6d4;
+
   /* Dark surfaces */
   --color-surface-900: #0f1419;
+  --color-surface-850: #141a27;
   --color-surface-800: #1a1f2e;
   --color-surface-700: #242b3d;
   --color-surface-600: #2d3548;
@@ -71,7 +78,68 @@
   --color-status-success: #22c55e;
   --color-status-warning: #f59e0b;
   --color-status-error: #ef4444;
-}
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  @keyframes shimmer-slide {
+  to {
+    transform: translate(calc(100cqw - 100%), 0);
+    }
+  }
+  @keyframes spin-around {
+  0% {
+    transform: translateZ(0) rotate(0);
+    }
+  15%, 35% {
+    transform: translateZ(0) rotate(90deg);
+    }
+  65%, 85% {
+    transform: translateZ(0) rotate(270deg);
+    }
+  100% {
+    transform: translateZ(0) rotate(360deg);
+    }
+  }
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+    }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+    }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
+  --animate-grid: grid 15s linear infinite
+;
+  @keyframes grid {
+  0% {
+    transform: translateY(-50%);}
+  100% {
+    transform: translateY(0);}}
+  --animate-shiny-text: shiny-text 8s infinite;
+  @keyframes shiny-text {
+  0%, 90%, 100% {
+    background-position: calc(-100% - var(--shiny-width)) 0;}
+  30%, 60% {
+    background-position: calc(100% + var(--shiny-width)) 0;}}
+  --animate-meteor: meteor 5s linear infinite;
+  @keyframes meteor {
+  0% {
+    transform: rotate(var(--angle)) translateX(0);
+    opacity: 1;}
+  70% {
+    opacity: 1;}
+  100% {
+    transform: rotate(var(--angle)) translateX(-500px);
+    opacity: 0;}}}
 
 :root {
   --radius: 0.625rem;
@@ -148,5 +216,93 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* ─── Glass panel system — 3 tiers ─── */
+.glass-panel {
+  @apply rounded-2xl border border-slate-200 bg-white/80 backdrop-blur-xl;
+}
+.dark .glass-panel {
+  @apply border-white/10 bg-white/5;
+}
+.glass-panel-md {
+  @apply rounded-2xl border border-slate-200 bg-white/90 shadow-lg backdrop-blur-xl;
+}
+.dark .glass-panel-md {
+  @apply border-white/[0.12] bg-white/[0.08] shadow-none;
+}
+.glass-panel-strong {
+  @apply rounded-2xl border border-slate-300 bg-white/95 shadow-xl backdrop-blur-2xl;
+}
+.dark .glass-panel-strong {
+  @apply border-white/15 bg-white/10 shadow-none;
+}
+
+/* ─── Gradient text for hero headings ─── */
+.text-gradient-hero {
+  @apply bg-clip-text text-transparent bg-gradient-to-b from-foreground to-brand-600;
+}
+.dark .text-gradient-hero {
+  @apply from-white to-brand-300;
+}
+
+/* ─── Background dot grid texture ─── */
+.bg-grid-dots {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: rgba(0, 0, 0, 0.04);
+}
+.dark .bg-grid-dots {
+  color: rgba(255, 255, 255, 0.04);
+}
+
+/* ─── Glow effects ─── */
+.glow-brand {
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.15), 0 0 80px rgba(59, 130, 246, 0.08);
+}
+.dark .glow-brand {
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.2), 0 0 80px rgba(59, 130, 246, 0.1);
+}
+
+/* ─── Gradient dividers ─── */
+.divider-gradient {
+  @apply h-px w-full;
+  background: linear-gradient(to right, transparent, var(--color-brand-500), transparent);
+  opacity: 0.2;
+}
+.dark .divider-gradient {
+  opacity: 0.3;
+}
+
+/* ─── Micro-label typography ─── */
+.micro-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  @apply text-brand-500;
+}
+
+/* ─── Avatar gradient placeholder ─── */
+.avatar-gradient {
+  background: linear-gradient(135deg, var(--color-brand-500), var(--color-cyan-400));
+}
+
+/* ─── Pulse animation for status indicators ─── */
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ─── Reduced motion safeguard ─── */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

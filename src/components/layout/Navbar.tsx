@@ -3,23 +3,47 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useMotionValueEvent,
+  useReducedMotion,
+} from "motion/react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NAV_LINKS } from "@/lib/constants";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
-import { Button } from "@/components/ui/button";
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
 
 export function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { scrollY } = useScroll();
+  const shouldReduceMotion = useReducedMotion();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setScrolled(latest > 50);
+  });
 
   const closeMobile = () => setMobileOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-white/80 backdrop-blur-md dark:bg-surface-900/80">
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="text-xl font-bold tracking-tight">
-          <span className="text-brand-500">RISE</span>
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
+      <nav
+        className={cn(
+          "mx-auto flex h-14 max-w-5xl items-center justify-between rounded-2xl px-4 transition-all duration-300",
+          scrolled
+            ? "glass-panel-md border-brand-500/20 shadow-lg shadow-brand-500/5"
+            : "bg-transparent",
+        )}
+      >
+        <Link
+          href="/"
+          className="font-display text-xl font-bold tracking-tight text-brand-500"
+        >
+          RISE
         </Link>
 
         {/* Desktop nav */}
@@ -29,9 +53,9 @@ export function Navbar() {
               key={link.href}
               href={link.href}
               className={cn(
-                "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                "rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
                 pathname === link.href
-                  ? "text-brand-500"
+                  ? "bg-brand-500/10 text-brand-500"
                   : "text-muted-foreground hover:text-foreground",
               )}
             >
@@ -42,21 +66,23 @@ export function Navbar() {
 
         <div className="hidden items-center gap-2 md:flex">
           <ThemeToggle />
-          <Button
-            asChild
-            size="sm"
-            className="bg-brand-600 hover:bg-brand-700 text-white"
-          >
-            <Link href="/dashboard">Dashboard</Link>
-          </Button>
+          <Link href="/dashboard">
+            <ShimmerButton
+              shimmerColor="#60a5fa"
+              background="rgba(59,130,246,0.9)"
+              className="h-9 px-4 text-sm font-medium"
+            >
+              Dashboard
+            </ShimmerButton>
+          </Link>
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Mobile controls */}
         <div className="flex items-center gap-2 md:hidden">
           <ThemeToggle />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="rounded-md p-2 hover:bg-gray-100 dark:hover:bg-white/10"
+            className="rounded-md p-2 hover:bg-slate-100 dark:hover:bg-white/10"
             aria-label="Toggle menu"
           >
             {mobileOpen ? (
@@ -69,36 +95,62 @@ export function Navbar() {
       </nav>
 
       {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="border-t border-white/10 bg-white dark:bg-surface-900 md:hidden">
-          <div className="space-y-1 px-4 py-3">
-            {NAV_LINKS.map((link) => (
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={
+              shouldReduceMotion ? { opacity: 0 } : { opacity: 0, height: 0 }
+            }
+            animate={
+              shouldReduceMotion
+                ? { opacity: 1 }
+                : { opacity: 1, height: "auto" }
+            }
+            exit={
+              shouldReduceMotion ? { opacity: 0 } : { opacity: 0, height: 0 }
+            }
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="mx-auto mt-2 max-w-5xl overflow-hidden rounded-2xl glass-panel-md md:hidden"
+          >
+            <div className="space-y-1 px-4 py-3">
+              {NAV_LINKS.map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  initial={shouldReduceMotion ? {} : { opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05, duration: 0.2 }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={closeMobile}
+                    className={cn(
+                      "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                      pathname === link.href
+                        ? "bg-brand-500/10 text-brand-500"
+                        : "text-muted-foreground hover:text-foreground",
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              ))}
               <Link
-                key={link.href}
-                href={link.href}
+                href="/dashboard"
                 onClick={closeMobile}
-                className={cn(
-                  "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                  pathname === link.href
-                    ? "text-brand-500 bg-brand-500/10"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
+                className="block mt-2"
               >
-                {link.label}
+                <ShimmerButton
+                  shimmerColor="#60a5fa"
+                  background="rgba(59,130,246,0.9)"
+                  className="h-9 w-full text-sm font-medium"
+                >
+                  Dashboard
+                </ShimmerButton>
               </Link>
-            ))}
-            <Button
-              asChild
-              size="sm"
-              className="mt-2 w-full bg-brand-600 hover:bg-brand-700 text-white"
-            >
-              <Link href="/dashboard" onClick={closeMobile}>
-                Dashboard
-              </Link>
-            </Button>
-          </div>
-        </div>
-      )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

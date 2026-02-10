@@ -1,0 +1,198 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "315 DSC" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: 315 DSC
+      - generic [ref=e8]:
+        - link "Home" [ref=e9] [cursor=pointer]:
+          - /url: /
+          - text: Home
+        - link "Rules" [ref=e11] [cursor=pointer]:
+          - /url: /rules
+        - link "Dates" [ref=e12] [cursor=pointer]:
+          - /url: /dates
+        - link "Roster" [ref=e13] [cursor=pointer]:
+          - /url: /roster
+        - link "Rankings" [ref=e14] [cursor=pointer]:
+          - /url: /rankings
+        - link "History" [ref=e15] [cursor=pointer]:
+          - /url: /history
+        - link "Live" [ref=e16] [cursor=pointer]:
+          - /url: /live
+  - main [ref=e18]:
+    - generic [ref=e20]:
+      - generic [ref=e22]:
+        - heading "315 Duelist Sex Club" [level=1] [ref=e24]:
+          - generic [ref=e25]: 315 Duelist Sex Club
+          - generic [ref=e26]: "315"
+          - generic [ref=e28]: Duelist
+          - generic [ref=e30]: Sex
+          - generic [ref=e32]: Club
+        - paragraph [ref=e33]: Who will restore order? Who will restore balance to the 315? (not bove)
+        - generic [ref=e35]:
+          - generic:
+            - generic: 𓌏
+          - generic:
+            - generic: 𓌏
+          - generic:
+            - generic: 𓌏
+          - generic:
+            - generic: 𓌏
+          - region "Video Player" [ref=e38]:
+            - generic [ref=e41]:
+              - generic:
+                - img
+              - group:
+                - slider "Seek" [ref=e45] [cursor=pointer]:
+                  - generic:
+                    - generic: 0:00
+                - generic [ref=e49]:
+                  - button "Play" [ref=e50] [cursor=pointer]:
+                    - img [ref=e51]
+                  - button "Mute" [ref=e54] [cursor=pointer]:
+                    - img [ref=e55]
+                  - generic [ref=e59]:
+                    - generic [ref=e60]: 0:00
+                    - generic [ref=e61]: /
+                    - generic [ref=e62]: 3:47
+                  - button "Settings" [ref=e65] [cursor=pointer]:
+                    - img [ref=e66]
+                  - button "Google Cast Disconnected" [ref=e68] [cursor=pointer]:
+                    - img [ref=e69]
+                  - button "PiP" [ref=e73] [cursor=pointer]:
+                    - img [ref=e74]
+                  - button "Fullscreen" [ref=e77] [cursor=pointer]:
+                    - img [ref=e78]
+      - generic [ref=e86]:
+        - paragraph [ref=e87]: Announcements
+        - generic [ref=e88]:
+          - img "Bandit Keith pointing at the announcements" [ref=e91]
+          - article [ref=e94]:
+            - time [ref=e96]: February 9, 2026
+            - heading "Attention 315 DSC Duelists and Fans!" [level=3] [ref=e97]
+            - generic [ref=e98]:
+              - paragraph [ref=e99]: Hope you have been practicing your dueling skills. You’re going to need them.
+              - paragraph [ref=e100]: We are having a Team Dinner on February 27, 2026 @ 7pm (the night before the tournament) at The Wildcat.
+              - paragraph [ref=e101]: Show up IN UNIFORM. No jersey, no food.
+      - generic [ref=e104]:
+        - heading "The Millenium Trophy" [level=2] [ref=e105]
+        - img "The Duel Series Championship trophy — a golden artifact of ultimate glory" [ref=e107]
+        - paragraph [ref=e109]: 100% Pure Real Egyptian Gold.
+      - generic [ref=e112]:
+        - paragraph [ref=e114]: The official 315 DSC Countdown
+        - generic [ref=e115]:
+          - generic [ref=e116]:
+            - generic [ref=e117]: "18"
+            - generic [ref=e119]: Days
+          - generic [ref=e120]:
+            - generic [ref=e121]: "13"
+            - generic [ref=e123]: Hours
+          - generic [ref=e124]:
+            - generic [ref=e125]: "20"
+            - generic [ref=e127]: Minutes
+          - generic [ref=e128]:
+            - generic [ref=e129]: "30"
+            - generic [ref=e131]: Seconds
+        - paragraph [ref=e132]: February 28, 2026 · The New Arena
+      - generic [ref=e137]:
+        - heading "Official DSCT Champions" [level=2] [ref=e138]
+        - paragraph [ref=e139]: The Hokage of the 315
+        - img "The Hokages of 315 — four DSC champions immortalized on a mountain of legend" [ref=e141]
+        - generic [ref=e143]:
+          - generic [ref=e145]: DSC I — Scott · Branded
+          - generic [ref=e146]:
+            - generic [ref=e147]: •
+            - generic [ref=e148]: DSC II — Lucas · Rikka Sunavalon
+          - generic [ref=e149]:
+            - generic [ref=e150]: •
+            - generic [ref=e151]: DSC III — Nate · Ice-Barrier
+          - generic [ref=e152]:
+            - generic [ref=e153]: •
+            - generic [ref=e154]: DSC IV — Jim · Blue-Eyes Primitive
+      - generic [ref=e158]:
+        - heading "The Challengers" [level=2] [ref=e159]
+        - paragraph [ref=e160]: 18 souls. 1 throne.
+        - generic [ref=e161]:
+          - generic [ref=e165]:
+            - img "Globulon" [ref=e167]
+            - generic [ref=e169]:
+              - generic [ref=e170]: Globulon
+              - generic [ref=e171]: ★
+              - generic [ref=e172]: Branded
+          - generic [ref=e176]:
+            - img "Great Value-Finn" [ref=e178]
+            - generic [ref=e180]:
+              - generic [ref=e181]: Great Value-Finn
+              - generic [ref=e182]: ★
+          - generic [ref=e186]:
+            - img "Jimutaro" [ref=e188]
+            - generic [ref=e190]:
+              - generic [ref=e191]: Jimutaro
+              - generic [ref=e192]: ★
+              - generic [ref=e193]: Darklord
+          - generic [ref=e197]:
+            - img "Lord of Rats" [ref=e199]
+            - generic [ref=e201]:
+              - generic [ref=e202]: Lord of Rats
+              - generic [ref=e203]: ★
+              - generic [ref=e204]: Fiendsmith Azamina
+          - generic [ref=e208]:
+            - img "E-Girl Expert" [ref=e210]
+            - generic [ref=e213]: E-Girl Expert
+          - generic [ref=e217]:
+            - img "Bruno Bucciarati" [ref=e219]
+            - generic [ref=e221]:
+              - generic [ref=e222]: Bruno Bucciarati
+              - generic [ref=e223]: Swordsoul
+          - generic [ref=e227]:
+            - img "JUCO God" [ref=e229]
+            - generic [ref=e231]:
+              - generic [ref=e232]: JUCO God
+              - generic [ref=e233]: HERO
+          - generic [ref=e237]:
+            - img "Dark Milk" [ref=e239]
+            - generic [ref=e241]:
+              - generic [ref=e242]: Dark Milk
+              - generic [ref=e243]: Unchained
+        - link "Enter the Full Roster" [ref=e245] [cursor=pointer]:
+          - /url: /roster
+          - generic [ref=e246]: Enter the Full Roster
+          - generic [ref=e247]: →
+  - contentinfo [ref=e248]:
+    - generic [ref=e251]:
+      - navigation "Footer navigation" [ref=e252]:
+        - list [ref=e253]:
+          - listitem [ref=e254]:
+            - link "Home" [ref=e255] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e256]:
+            - generic [ref=e257]: ·
+            - link "Rules" [ref=e258] [cursor=pointer]:
+              - /url: /rules
+          - listitem [ref=e259]:
+            - generic [ref=e260]: ·
+            - link "Dates" [ref=e261] [cursor=pointer]:
+              - /url: /dates
+          - listitem [ref=e262]:
+            - generic [ref=e263]: ·
+            - link "Roster" [ref=e264] [cursor=pointer]:
+              - /url: /roster
+          - listitem [ref=e265]:
+            - generic [ref=e266]: ·
+            - link "Rankings" [ref=e267] [cursor=pointer]:
+              - /url: /rankings
+          - listitem [ref=e268]:
+            - generic [ref=e269]: ·
+            - link "History" [ref=e270] [cursor=pointer]:
+              - /url: /history
+          - listitem [ref=e271]:
+            - generic [ref=e272]: ·
+            - link "Live" [ref=e273] [cursor=pointer]:
+              - /url: /live
+      - paragraph [ref=e274]: 315 Duelist Sex Club Championship
+      - paragraph [ref=e275]: All duels, No sex
+      - paragraph [ref=e276]: The ancient records are maintained by Great Value Finn
+  - button "Open Next.js Dev Tools" [ref=e282] [cursor=pointer]:
+    - img [ref=e283]
+  - alert [ref=e286]

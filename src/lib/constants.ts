@@ -221,3 +221,48 @@ export const RECENT_ACTIVITY = [
     time: "12 hours ago",
   },
 ] as const;
+
+export const COMPANY_TIMELINE = [
+  {
+    year: "2023",
+    title: "Founded",
+    description:
+      "Launched with a mission to modernize federal workforce tracking through a single unified interface.",
+  },
+  {
+    year: "2024",
+    title: "First Federal Deployment",
+    description:
+      "Deployed across 2 regions supporting 5,000+ positions for Army National Guard training contracts.",
+  },
+  {
+    year: "2025",
+    title: "5 Regions Live",
+    description:
+      "Expanded to all 5 CONUS regions, tracking 10,000+ positions with 91% fill rate.",
+  },
+  {
+    year: "2026",
+    title: "FedRAMP In Progress",
+    description:
+      "Authorization underway. 50+ agency partnerships. Real-time analytics across all contract vehicles.",
+  },
+] as const;
+
+export const TRUSTED_BY = [
+  "PENTAGON SYSTEMS",
+  "NORTHSTAR DEFENSE",
+  "VANGUARD TECH",
+  "CENTURION GROUP",
+  "AEGIS SOLUTIONS",
+  "SUMMIT FEDERAL",
+  "REDSTONE ANALYTICS",
+  "TRIDENT CONSULTING",
+] as const;
+
+export const FOOTER_RESOURCES = [
+  { label: "Documentation", href: "#" },
+  { label: "API Reference", href: "#" },
+  { label: "Status Page", href: "#" },
+  { label: "Changelog", href: "#" },
+] as const;
