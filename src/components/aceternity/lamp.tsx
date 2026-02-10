@@ -19,6 +19,9 @@ export function Lamp({ children, className }: LampProps) {
         className,
       )}
     >
+      {/* Top fade — prevents lamp glow from bleeding into nav */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-32 bg-gradient-to-b from-surface-900 to-transparent" />
+
       {/* Lamp cone */}
       <div className="relative z-0 flex w-full flex-1 items-center justify-center">
         <motion.div

@@ -1,0 +1,219 @@
+[   38950ms] [ERROR] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+      <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+        <LoadingBoundary name="(public)/" loading={null}>
+          <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:<Fragment>, ...}} ...>
+                    <SegmentViewNode type="page" pagePath="(public)/p...">
+                      <SegmentTrieNode>
+                      <HomePage>
+                        <HeroLanding>
+                        <ScrollStatement>
+                        <BentoFeatures>
+                        <HowItWorks>
+                        <HomePage>
+                          <CTAFinal>
+                            <section className="relative o...">
+                              <AnimatedGridPattern>
+                              <Meteors number={12} minDuration={3} maxDuration={8}>
+                                <span
+                                  style={{
++                                   --angle: "-215deg"
+-                                   --angle: "-215deg"
++                                   top: "-5%"
+-                                   top: "-5%"
++                                   left: "79vw"
+-                                   left: "62vw"
++                                   animationDelay: "0.5219309103384588s"
++                                   animationDuration: "5s"
+-                                   animation-delay: "0.695097s"
+-                                   animation-duration: "6s"
+                                  }}
+                                  className="animate-meteor pointer-events-none absolute size-0.5 rotate-[var(--angle)..."
+                                >
+                                <span
+                                  style={{
++                                   --angle: "-215deg"
+-                                   --angle: "-215deg"
++                                   top: "-5%"
+-                                   top: "-5%"
++                                   left: "50vw"
+-                                   left: "25vw"
++                                   animationDelay: "0.7980890271572489s"
++                                   animationDuration: "6s"
+-                                   animation-delay: "1.12813s"
+-                                   animation-duration: "4s"
+                                  }}
+                                  className="animate-meteor pointer-events-none absolute size-0.5 rotate-[var(--angle)..."
+                                >
+                                <span
+                                  style={{
++                                   --angle: "-215deg"
+-                                   --angle: "-215deg"
++                                   top: "-5%"
+-                                   top: "-5%"
++                                   left: "73vw"
+-                                   left: "39vw"
++                                   animationDelay: "0.5980773173203524s"
++                                   animationDuration: "5s"
+-                                   animation-delay: "0.696103s"
+-                                   animation-duration: "5s"
+                                  }}
+                                  className="animate-meteor pointer-events-none absolute size-0.5 rotate-[var(--angle)..."
+                                >
+                                <span
+                                  style={{
++                                   --angle: "-215deg"
+-                                   --angle: "-215deg"
++                                   top: "-5%"
+-                                   top: "-5%"
++                                   left: "78vw"
+-                                   left: "66vw"
++                                   animationDelay: "0.6421824649767978s"
++                                   animationDuration: "3s"
+-                                   animation-delay: "0.558737s"
+-                                   animation-duration: "4s"
+                                  }}
+                                  className="animate-meteor pointer-events-none absolute size-0.5 rotate-[var(--angle)..."
+                                >
+                                <span
+                                  style={{
++                                   --angle: "-215deg"
+-                                   --angle: "-215deg"
++                                   top: "-5%"
+-                                   top: "-5%"
++                                   left: "33vw"
+-                                   left: "52vw"
++                                   animationDelay: "0.9881847118923739s"
++                                   animationDuration: "4s"
+-                                   animation-delay: "0.944395s"
+-                                   animation-duration: "3s"
+                                  }}
+                                  className="animate-meteor pointer-events-none absolute size-0.5 rotate-[var(--angle)..."
+                                >
+                                <span
+                                  style={{
++                                   --angle: "-215deg"
+-                                   --angle: "-215deg"
++                                   top: "-5%"
+-                                   top: "-5%"
++                                   left: "7vw"
+-                                   left: "86vw"
++                                   animationDelay: "0.8492210752303295s"
++                                   animationDuration: "7s"
+-                                   animation-delay: "0.37388s"
+-                                   animation-duration: "6s"
+                                  }}
+                                  className="animate-meteor pointer-events-none absolute size-0.5 rotate-[var(--angle)..."
+                                >
+                                <span
+                                  style={{
++                                   --angle: "-215deg"
+-                                   --angle: "-215deg"
++                                   top: "-5%"
+-                                   top: "-5%"
++                                   left: "71vw"
+-                                   left: "27vw"
++                                   animationDelay: "1.044356645242148s"
++                                   animationDuration: "7s"
+-                                   animation-delay: "0.924548s"
+-                                   animation-duration: "4s"
+                                  }}
+                                  className="animate-meteor pointer-events-none absolute size-0.5 rotate-[var(--angle)..."
+                                >
+                                <span
+                                  style={{
++                                   --angle: "-215deg"
+-                                   --angle: "-215deg"
++                                   top: "-5%"
+-                                   top: "-5%"
++                                   left: "4vw"
+-                                   left: "52vw"
++                                   animationDelay: "0.8692153789901962s"
++                                   animationDuration: "6s"
+-                                   animation-delay: "0.497703s"
+-                                   animation-duration: "7s"
+                                  }}
+                                  className="animate-meteor pointer-events-none absolute size-0.5 rotate-[var(--angle)..."
+                                >
+                                <span
+                                  style={{
++                                   --angle: "-215deg"
+-                                   --angle: "-215deg"
++                                   top: "-5%"
+-                                   top: "-5%"
++                                   left: "23vw"
+-                                   left: "29vw"
++                                   animationDelay: "0.9178817199181262s"
++                                   animationDuration: "4s"
+-                                   animation-delay: "1.06614s"
+-                                   animation-duration: "7s"
+                                  }}
+                                  className="animate-meteor pointer-events-none absolute size-0.5 rotate-[var(--angle)..."
+                                >
+                                <span
+                                  style={{
++                                   --angle: "-215deg"
+-                                   --angle: "-215deg"
++                                   top: "-5%"
+-                                   top: "-5%"
++                                   left: "36vw"
+-                                   left: "88vw"
++                                   animationDelay: "0.783974785432213s"
++                                   animationDuration: "4s"
+-                                   animation-delay: "1.16435s"
+-                                   animation-duration: "7s"
+                                  }}
+                                  className="animate-meteor pointer-events-none absolute size-0.5 rotate-[var(--angle)..."
+                                >
+                                <span
+                                  style={{
++                                   --angle: "-215deg"
+-                                   --angle: "-215deg"
++                                   top: "-5%"
+-                                   top: "-5%"
++                                   left: "75vw"
+-                                   left: "12vw"
++                                   animationDelay: "1.0251288192330676s"
++                                   animationDuration: "5s"
+-                                   animation-delay: "0.815174s"
+-                                   animation-duration: "3s"
+                                  }}
+                                  className="animate-meteor pointer-events-none absolute size-0.5 rotate-[var(--angle)..."
+                                >
+                                <span
+                                  style={{
++                                   --angle: "-215deg"
+-                                   --angle: "-215deg"
++                                   top: "-5%"
+-                                   top: "-5%"
++                                   left: "30vw"
+-                                   left: "58vw"
++                                   animationDelay: "0.7478551123732957s"
++                                   animationDuration: "3s"
+-                                   animation-delay: "0.634052s"
+-                                   animation-duration: "6s"
+                                  }}
+                                  className="animate-meteor pointer-events-none absolute size-0.5 rotate-[var(--angle)..."
+                                >
+                              ...
+                    ...
+                  ...
+      ...
+ @ http://localhost:3001/_next/static/chunks/b2b3e_next_dist_77a734fe._.js:3127
+[   38961ms] [WARNING] Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly. @ http://localhost:3001/_next/static/chunks/b2b3e_next_dist_77a734fe._.js:2297

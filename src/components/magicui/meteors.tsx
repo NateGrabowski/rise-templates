@@ -42,16 +42,22 @@ export const Meteors = ({
   angle = 215,
   className,
 }: MeteorsProps) => {
-  const [meteorStyles] = React.useState<Array<React.CSSProperties>>(() =>
-    generateMeteorStyles(
-      number,
-      angle,
-      minDelay,
-      maxDelay,
-      minDuration,
-      maxDuration,
-    ),
-  );
+  const [meteorStyles, setMeteorStyles] = React.useState<
+    Array<React.CSSProperties>
+  >([]);
+
+  React.useEffect(() => {
+    setMeteorStyles(
+      generateMeteorStyles(
+        number,
+        angle,
+        minDelay,
+        maxDelay,
+        minDuration,
+        maxDuration,
+      ),
+    );
+  }, [number, angle, minDelay, maxDelay, minDuration, maxDuration]);
 
   return (
     <>

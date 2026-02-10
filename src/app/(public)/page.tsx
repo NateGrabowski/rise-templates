@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { HeroLanding } from "@/components/marketing/HeroLanding";
-import { TrustedByMarquee } from "@/components/marketing/TrustedByMarquee";
-import { FeaturesPreview } from "@/components/marketing/FeaturesPreview";
+import { FeaturesShowcase } from "@/components/marketing/FeaturesShowcase";
 import { HowItWorks } from "@/components/marketing/HowItWorks";
-import { CTASection } from "@/components/marketing/CTASection";
+import { CTAFinal } from "@/components/marketing/CTAFinal";
 
 export const metadata: Metadata = {
   title: "RISE — Operational Visibility. Elevated.",
@@ -15,16 +14,9 @@ export default function HomePage() {
   return (
     <>
       <HeroLanding />
-      <TrustedByMarquee />
-      <FeaturesPreview />
+      <FeaturesShowcase />
       <HowItWorks />
-
-      <CTASection
-        title="Ready to Rise?"
-        subtitle="Join the agencies that trust RISE for operational visibility."
-        ctaText="Get Started"
-        ctaHref="/contact"
-      />
+      <CTAFinal />
     </>
   );
 }

@@ -1,24 +1,16 @@
 "use client";
 
-import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-} from "motion/react";
+import { useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { BlurFade } from "@/components/magicui/blur-fade";
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
-import { BorderBeam } from "@/components/magicui/border-beam";
-import { BackgroundBeams } from "@/components/aceternity/background-beams";
+
 import { Particles } from "@/components/magicui/particles";
-import { AnimatedCounter } from "@/components/motion/AnimatedCounter";
-import { DashboardPreview } from "@/components/marketing/DashboardPreview";
+import { NumberTicker } from "@/components/magicui/number-ticker";
+import { Lamp } from "@/components/aceternity/lamp";
 
 const STATS = [
   { value: 10000, suffix: "+", label: "Positions Tracked" },
@@ -28,34 +20,14 @@ const STATS = [
 ] as const;
 
 export function HeroLanding() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const rotateX = useTransform(scrollYProgress, [0, 0.5], [15, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.92, 1]);
-  const opacity = useTransform(scrollYProgress, [0.4, 0.7], [1, 0.3]);
-
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-screen overflow-hidden bg-gradient-to-b from-surface-900 via-brand-950/50 to-surface-900"
-    >
-      {/* Ambient layers */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,_var(--color-brand-500),_transparent_60%)] opacity-[0.12]" />
-      <div className="absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-cyan-500/[0.07] blur-[120px]" />
-      <div className="absolute -bottom-40 -left-40 h-[500px] w-[500px] rounded-full bg-brand-500/[0.07] blur-[120px]" />
-      <BackgroundBeams />
-      <Particles className="absolute inset-0" color="#3b82f6" quantity={30} />
-
-      <div className="relative mx-auto max-w-6xl px-4 pt-28 pb-8 sm:px-6 sm:pt-36 lg:px-8">
+    <section className="relative overflow-hidden">
+      <Lamp className="min-h-screen">
         {/* Badge */}
         <BlurFade delay={0}>
-          <div className="mb-8 flex justify-center">
+          <div className="mb-8 mt-24 flex justify-center">
             <div className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.05] px-4 py-1.5 backdrop-blur-sm">
               <AnimatedShinyText className="text-sm font-medium">
                 Now tracking 10,000+ positions across 5 regions
@@ -67,7 +39,7 @@ export function HeroLanding() {
 
         {/* Headline */}
         <BlurFade delay={0.1}>
-          <h1 className="mx-auto max-w-4xl text-center font-display text-5xl font-extrabold tracking-[-0.03em] leading-[1.08] sm:text-6xl lg:text-7xl xl:text-8xl">
+          <h1 className="mx-auto max-w-5xl text-center font-display text-6xl font-extrabold tracking-[-0.04em] leading-[1.05] sm:text-7xl lg:text-8xl xl:text-9xl">
             <span className="text-gradient-hero">Operational</span>
             <br className="sm:hidden" />{" "}
             <span className="text-gradient-hero">Visibility.</span>
@@ -90,16 +62,13 @@ export function HeroLanding() {
         {/* CTAs */}
         <BlurFade delay={0.4}>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link href="/dashboard">
-              <ShimmerButton
-                shimmerColor="#60a5fa"
-                background="rgba(59, 130, 246, 0.15)"
-                borderRadius="12px"
-                className="px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand-500/25"
-              >
-                View Live Dashboard
-              </ShimmerButton>
-            </Link>
+            <Button
+              asChild
+              size="lg"
+              className="rounded-xl bg-brand-500 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand-500/25 hover:bg-brand-600"
+            >
+              <Link href="/dashboard">View Live Dashboard</Link>
+            </Button>
             <Button
               asChild
               variant="outline"
@@ -113,9 +82,9 @@ export function HeroLanding() {
           </div>
         </BlurFade>
 
-        {/* Inline stats */}
+        {/* Stats row */}
         <BlurFade delay={0.55}>
-          <div className="mx-auto mt-14 flex max-w-2xl flex-wrap items-center justify-center gap-x-10 gap-y-4">
+          <div className="mt-14 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
             {STATS.map((stat, i) => (
               <div
                 key={stat.label}
@@ -125,8 +94,15 @@ export function HeroLanding() {
                     "sm:border-r sm:border-white/10 sm:pr-10",
                 )}
               >
-                <span className="font-mono text-2xl font-bold tabular-nums text-white">
-                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                <span className="font-mono text-2xl font-bold">
+                  <NumberTicker
+                    value={stat.value}
+                    delay={0.3 + i * 0.1}
+                    className="text-white"
+                  />
+                  {stat.suffix && (
+                    <span className="text-brand-400">{stat.suffix}</span>
+                  )}
                 </span>
                 <span className="text-xs tracking-wider text-white/40 uppercase">
                   {stat.label}
@@ -135,30 +111,16 @@ export function HeroLanding() {
             ))}
           </div>
         </BlurFade>
+      </Lamp>
 
-        {/* 3D Dashboard Preview */}
-        <div className="mt-16 sm:mt-20" style={{ perspective: "1200px" }}>
-          <motion.div
-            style={shouldReduceMotion ? {} : { rotateX, scale, opacity }}
-            className="relative"
-          >
-            {/* Glow underneath */}
-            <div className="absolute -inset-x-10 -bottom-10 h-40 bg-[radial-gradient(ellipse_at_center,_var(--color-brand-500)_0%,_transparent_70%)] opacity-30 blur-2xl" />
-
-            {/* The mockup */}
-            <div className="relative">
-              <BorderBeam
-                colorFrom="#3b82f6"
-                colorTo="#22d3ee"
-                size={200}
-                duration={8}
-                borderWidth={1.5}
-              />
-              <DashboardPreview />
-            </div>
-          </motion.div>
-        </div>
-      </div>
+      {/* Particles — outside Lamp, subtle float */}
+      {!shouldReduceMotion && (
+        <Particles
+          className="absolute inset-0 z-40"
+          color="#3b82f6"
+          quantity={15}
+        />
+      )}
     </section>
   );
 }

@@ -1,151 +1,270 @@
 "use client";
 
-import { Map, BarChart3, Activity, Shield } from "lucide-react";
+import Link from "next/link";
+import { Map, BarChart3, Activity, Shield, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { BlurFade } from "@/components/magicui/blur-fade";
+import { BorderBeam } from "@/components/magicui/border-beam";
+import { MagicCard } from "@/components/ui/magic-card";
 import { SectionHeading } from "@/components/motion";
 
-function RegionalTrackingCell() {
+/* ── SVG Mini Visualizations ─────────────────────────────── */
+
+function MiniMap() {
   return (
-    <BlurFade delay={0.1} inView>
-      <div className="glass-panel-strong group h-full p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-500/30">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-500/10 text-brand-400">
-          <Map className="h-5 w-5" />
-        </div>
-        <h3 className="mt-4 font-display text-lg font-semibold">
-          Regional Tracking
-        </h3>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Interactive US map with real-time status by region. Drill into
-          state-level detail with a single click.
-        </p>
-        {/* Decorative mini map visualization */}
-        <div className="mt-6 grid grid-cols-5 gap-2">
-          {[
-            "bg-brand-500",
-            "bg-brand-400",
-            "bg-cyan-400",
-            "bg-brand-600",
-            "bg-brand-300",
-            "bg-brand-400/60",
-            "bg-cyan-500",
-            "bg-brand-500/40",
-            "bg-brand-400",
-            "bg-brand-600/60",
-          ].map((color, i) => (
-            <div
-              key={i}
-              className={`h-3 w-3 rounded-full ${color} opacity-60`}
-            />
-          ))}
-        </div>
-      </div>
-    </BlurFade>
+    <svg viewBox="0 0 240 100" className="h-full w-full">
+      {[
+        { cx: 180, cy: 30, r: 8, fill: "#3b82f6" },
+        { cx: 170, cy: 65, r: 6, fill: "#22d3ee" },
+        { cx: 120, cy: 45, r: 9, fill: "#3b82f6" },
+        { cx: 70, cy: 60, r: 6, fill: "#22d3ee" },
+        { cx: 40, cy: 35, r: 7, fill: "#3b82f6" },
+      ].map((dot, i) => (
+        <g key={i}>
+          <circle {...dot} opacity={0.2} r={dot.r * 3} />
+          <circle {...dot} opacity={0.8} />
+        </g>
+      ))}
+      <line
+        x1="180"
+        y1="30"
+        x2="120"
+        y2="45"
+        stroke="#3b82f6"
+        strokeWidth="0.8"
+        opacity="0.3"
+      />
+      <line
+        x1="120"
+        y1="45"
+        x2="40"
+        y2="35"
+        stroke="#3b82f6"
+        strokeWidth="0.8"
+        opacity="0.3"
+      />
+      <line
+        x1="170"
+        y1="65"
+        x2="70"
+        y2="60"
+        stroke="#22d3ee"
+        strokeWidth="0.8"
+        opacity="0.3"
+      />
+    </svg>
   );
 }
 
-function AnalyticsCell() {
+function MiniChart() {
   return (
-    <BlurFade delay={0.2} inView>
-      <div className="glass-panel-strong group h-full p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-500/30">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-500/10 text-brand-400">
-          <BarChart3 className="h-5 w-5" />
-        </div>
-        <h3 className="mt-4 font-display text-lg font-semibold">
-          Analytics & Reports
-        </h3>
-        {/* Mock bar chart */}
-        <div className="mt-6 flex items-end gap-2">
-          {[40, 65, 50, 80].map((h, i) => (
-            <div
-              key={i}
-              className="w-full rounded-t bg-gradient-to-t from-brand-600 to-brand-400 opacity-70"
-              style={{ height: `${h}px` }}
-            />
-          ))}
-        </div>
-      </div>
-    </BlurFade>
+    <svg
+      viewBox="0 0 200 90"
+      className="h-full w-full"
+      preserveAspectRatio="none"
+    >
+      <defs>
+        <linearGradient id="bento-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#22d3ee" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M0,70 C20,65 40,55 60,48 C80,40 100,35 130,28 C160,20 180,16 200,12 L200,90 L0,90 Z"
+        fill="url(#bento-fill)"
+      />
+      <path
+        d="M0,70 C20,65 40,55 60,48 C80,40 100,35 130,28 C160,20 180,16 200,12"
+        fill="none"
+        stroke="#22d3ee"
+        strokeWidth="2"
+      />
+      {[
+        [0, 70],
+        [60, 48],
+        [130, 28],
+        [200, 12],
+      ].map(([x, y], i) => (
+        <circle key={i} cx={x} cy={y} r="3.5" fill="#22d3ee" />
+      ))}
+    </svg>
   );
 }
 
-function PipelineCell() {
+function MiniPipeline() {
+  const stages = [
+    { w: "92%", label: "94", color: "from-emerald-400 to-emerald-500/60" },
+    { w: "72%", label: "71", color: "from-emerald-400/80 to-emerald-500/40" },
+    { w: "52%", label: "47", color: "from-emerald-400/60 to-emerald-500/30" },
+    { w: "32%", label: "24", color: "from-emerald-400/40 to-emerald-500/20" },
+  ];
   return (
-    <BlurFade delay={0.3} inView>
-      <div className="glass-panel-strong group h-full p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-500/30">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-500/10 text-brand-400">
-          <Activity className="h-5 w-5" />
+    <div className="flex h-full flex-col justify-center gap-2.5">
+      {stages.map((s, i) => (
+        <div key={i} className="flex items-center gap-2.5">
+          <div
+            className={cn("h-4 rounded-full bg-gradient-to-r", s.color)}
+            style={{ width: s.w }}
+          />
+          <span className="font-mono text-xs text-emerald-300/70">
+            {s.label}
+          </span>
         </div>
-        <h3 className="mt-4 font-display text-lg font-semibold">
-          Real-Time Pipeline
-        </h3>
-        {/* Mock pipeline columns */}
-        <div className="mt-6 space-y-2">
-          {["Requisition", "Interview", "Onboarding"].map((label, i) => (
-            <div key={label} className="flex items-center gap-2">
-              <div
-                className={`h-2 w-2 rounded-full ${
-                  i === 0
-                    ? "bg-status-success"
-                    : i === 1
-                      ? "bg-status-warning"
-                      : "bg-brand-400"
-                }`}
-              />
-              <span className="text-xs text-muted-foreground">{label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </BlurFade>
+      ))}
+    </div>
   );
 }
 
-function SecurityCell() {
-  return (
-    <BlurFade delay={0.4} inView>
-      <div className="glass-panel-strong group h-full p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-500/30">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-500/10 text-brand-400">
-          <Shield className="h-5 w-5" />
-        </div>
-        <h3 className="mt-4 font-display text-lg font-semibold">
-          Security & Training
-        </h3>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Monitor clearance processing timelines, schedule orientations, and
-          track training compliance across all regions.
-        </p>
-        <div className="mt-4 flex gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500/10 text-brand-400">
-            <Shield className="h-4 w-4" />
-          </div>
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400">
-            <Shield className="h-4 w-4" />
-          </div>
-        </div>
-      </div>
-    </BlurFade>
-  );
-}
+/* ── Card Config ──────────────────────────────────────────── */
+
+const CARDS = [
+  {
+    title: "Regional Command Map",
+    desc: "Interactive status across all 5 CONUS regions. Drill from national overview to state-level detail in one click.",
+    icon: Map,
+    accent: "brand",
+    gradient: "from-brand-500/15 via-brand-600/5 to-transparent",
+    magicFrom: "#3b82f6",
+    magicTo: "#60a5fa",
+    visual: MiniMap,
+    wide: true,
+  },
+  {
+    title: "Analytics & Reports",
+    desc: "Pipeline metrics, fill rates, trend analysis. Export to Power BI or download executive briefings as PDF.",
+    icon: BarChart3,
+    accent: "cyan",
+    gradient: "from-cyan-500/15 via-cyan-600/5 to-transparent",
+    magicFrom: "#22d3ee",
+    magicTo: "#67e8f9",
+    visual: MiniChart,
+    wide: false,
+  },
+  {
+    title: "Real-Time Pipeline",
+    desc: "Track every position from requisition through onboarding. Automated status updates and recruiter assignment.",
+    icon: Activity,
+    accent: "emerald",
+    gradient: "from-emerald-500/15 via-emerald-600/5 to-transparent",
+    magicFrom: "#10b981",
+    magicTo: "#34d399",
+    visual: MiniPipeline,
+    wide: false,
+  },
+  {
+    title: "Security & Training",
+    desc: "Monitor clearance processing timelines, schedule orientations, and track training compliance across all regions.",
+    icon: Shield,
+    accent: "violet",
+    gradient: "from-violet-500/15 via-violet-600/5 to-transparent",
+    magicFrom: "#8b5cf6",
+    magicTo: "#a78bfa",
+    visual: null,
+    wide: true,
+  },
+] as const;
+
+const ACCENT_COLORS = {
+  brand: {
+    icon: "bg-brand-500/15 text-brand-400",
+    beam: ["#3b82f6", "#60a5fa"],
+  },
+  cyan: { icon: "bg-cyan-500/15 text-cyan-400", beam: ["#22d3ee", "#67e8f9"] },
+  emerald: {
+    icon: "bg-emerald-500/15 text-emerald-400",
+    beam: ["#10b981", "#34d399"],
+  },
+  violet: {
+    icon: "bg-violet-500/15 text-violet-400",
+    beam: ["#8b5cf6", "#a78bfa"],
+  },
+} as const;
+
+/* ── Component ────────────────────────────────────────────── */
 
 export function BentoFeatures() {
   return (
     <section className="px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading label="Capabilities" title="Everything You Need" />
+        <SectionHeading
+          label="Capabilities"
+          title="Built for Mission-Critical Workforce Ops"
+          subtitle="Every feature designed for the speed and precision government contractors demand."
+        />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="lg:col-span-2">
-            <RegionalTrackingCell />
-          </div>
-          <div>
-            <AnalyticsCell />
-          </div>
-          <div>
-            <PipelineCell />
-          </div>
-          <div className="lg:col-span-2">
-            <SecurityCell />
-          </div>
+          {CARDS.map((card, i) => {
+            const colors = ACCENT_COLORS[card.accent];
+            const Visual = card.visual;
+            return (
+              <div
+                key={card.title}
+                className={cn(card.wide && "lg:col-span-2")}
+              >
+                <BlurFade delay={0.1 + i * 0.1} inView>
+                  <MagicCard
+                    className="group h-full rounded-2xl"
+                    gradientSize={300}
+                    gradientFrom={card.magicFrom}
+                    gradientTo={card.magicTo}
+                    gradientColor="#1a1f2e"
+                    gradientOpacity={0.2}
+                  >
+                    {card.wide && (
+                      <BorderBeam
+                        colorFrom={colors.beam[0]}
+                        colorTo={colors.beam[1]}
+                        size={120}
+                        duration={8}
+                        borderWidth={1.5}
+                      />
+                    )}
+                    {/* Resting gradient backdrop */}
+                    <div
+                      className={cn(
+                        "pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br opacity-60 transition-opacity duration-500 group-hover:opacity-100",
+                        card.gradient,
+                      )}
+                    />
+                    <div className="relative flex h-full flex-col p-6">
+                      <div
+                        className={cn(
+                          "flex h-11 w-11 items-center justify-center rounded-xl ring-1 ring-white/[0.06]",
+                          colors.icon,
+                        )}
+                      >
+                        <card.icon className="h-5 w-5" />
+                      </div>
+                      <h3 className="mt-4 font-display text-lg font-semibold text-white">
+                        {card.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-white/50">
+                        {card.desc}
+                      </p>
+                      {Visual && (
+                        <div className="mt-auto pt-5">
+                          <div className="h-24 overflow-hidden rounded-lg border border-white/[0.04] bg-surface-900/60 p-2">
+                            <Visual />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </MagicCard>
+                </BlurFade>
+              </div>
+            );
+          })}
         </div>
+        <BlurFade delay={0.5} inView>
+          <div className="mt-12 text-center">
+            <Link
+              href="/features"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-brand-400 transition-colors hover:text-brand-300"
+            >
+              View All Features
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </BlurFade>
       </div>
     </section>
   );

@@ -1,0 +1,51 @@
+[   63991ms] [ERROR] ./src/components/marketing/BentoFeatures.tsx:249:23
+Parsing ecmascript source code failed
+  247 |                     </div>
+  248 |                   </MagicCard>
+> 249 |                 </div>
+      |                       ^
+> 250 |               </BlurFade>
+      | ^^^^^^^^^^^^^^^
+  251 |             );
+  252 |           })}
+  253 |         </div>
+
+Expected '</', got 'jsx text'
+
+Import trace:
+  Server Component:
+    ./src/components/marketing/BentoFeatures.tsx
+    ./src/app/(public)/page.tsx @ http://localhost:3001/_next/static/chunks/b2b3e_next_dist_77a734fe._.js:3127
+[   64071ms] [ERROR] ./src/components/marketing/BentoFeatures.tsx:249:23
+Parsing ecmascript source code failed
+  247 |                     </div>
+  248 |                   </MagicCard>
+> 249 |                 </div>
+      |                       ^
+> 250 |               </BlurFade>
+      | ^^^^^^^^^^^^^^^
+  251 |             );
+  252 |           })}
+  253 |         </div>
+
+Expected '</', got 'jsx text'
+
+Import trace:
+  Server Component:
+    ./src/components/marketing/BentoFeatures.tsx
+    ./src/app/(public)/page.tsx @ http://localhost:3001/_next/static/chunks/b2b3e_next_dist_77a734fe._.js:3127
+[  796585ms] [WARNING] [HMR] Invalid message: {"isTrusted":true}
+TypeError: Cannot convert undefined or null to object
+    at Object.keys (<anonymous>)
+    at extractModulesFromTurbopackMessage (http://localhost:3001/_next/static/chunks/b2b3e_next_dist_client_121ab40e._.js:11210:39)
+    at TurbopackHmr.onTurbopackMessage (http://localhost:3001/_next/static/chunks/b2b3e_next_dist_client_121ab40e._.js:11157:32)
+    at processMessage (http://localhost:3001/_next/static/chunks/b2b3e_next_dist_client_121ab40e._.js:11589:30)
+    at WebSocket.handleMessage (http://localhost:3001/_next/static/chunks/b2b3e_next_dist_client_121ab40e._.js:10914:52) @ http://localhost:3001/_next/static/chunks/b2b3e_next_dist_77a734fe._.js:2297
+[  796616ms] ReferenceError: BentoFeatures is not defined
+    at HomePage (about://React/Server/file:///workspace/RISE/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__05a1c3c5._.js?47:157:426)
+    at resolveErrorDev (http://localhost:3001/_next/static/chunks/b2b3e_next_dist_compiled_react-server-dom-turbopack_1182ddf0._.js:1894:106)
+    at processFullStringRow (http://localhost:3001/_next/static/chunks/b2b3e_next_dist_compiled_react-server-dom-turbopack_1182ddf0._.js:2402:29)
+    at processFullBinaryRow (http://localhost:3001/_next/static/chunks/b2b3e_next_dist_compiled_react-server-dom-turbopack_1182ddf0._.js:2361:9)
+    at processBinaryChunk (http://localhost:3001/_next/static/chunks/b2b3e_next_dist_compiled_react-server-dom-turbopack_1182ddf0._.js:2470:221)
+    at progress (http://localhost:3001/_next/static/chunks/b2b3e_next_dist_compiled_react-server-dom-turbopack_1182ddf0._.js:2640:13)
+[  802295ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3001/_next/static/chunks/b2b3e_next_dist_77a734fe._.js:2297
