@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Map, BarChart3, Activity, Shield, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { usePerformanceMode } from "@/components/providers/PerformanceProvider";
 import { cn } from "@/lib/utils";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { BorderBeam } from "@/components/magicui/border-beam";
@@ -52,6 +53,7 @@ const FEATURES = [
 export function FeaturesShowcase() {
   const [active, setActive] = useState(1);
   const shouldReduceMotion = useReducedMotion();
+  const { isLite } = usePerformanceMode();
   const feat = FEATURES[active];
 
   return (
@@ -144,18 +146,22 @@ export function FeaturesShowcase() {
             {/* ── Right: Preview Panel ── */}
             <div className="relative lg:col-span-3">
               <div className="relative overflow-hidden rounded-2xl border border-white/[0.06] bg-surface-900/80 backdrop-blur-sm">
-                <BorderBeam
-                  colorFrom={feat.accent}
-                  colorTo={feat.accentLight}
-                  size={150}
-                  duration={8}
-                  borderWidth={1.5}
-                />
+                {!isLite && (
+                  <BorderBeam
+                    colorFrom={feat.accent}
+                    colorTo={feat.accentLight}
+                    size={150}
+                    duration={8}
+                    borderWidth={1.5}
+                  />
+                )}
                 {/* Accent glow */}
-                <div
-                  className="pointer-events-none absolute -top-20 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full opacity-30 blur-[80px]"
-                  style={{ backgroundColor: feat.accent }}
-                />
+                {!isLite && (
+                  <div
+                    className="pointer-events-none absolute -top-20 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full opacity-30 blur-[80px]"
+                    style={{ backgroundColor: feat.accent }}
+                  />
+                )}
                 {/* Mock title bar */}
                 <div className="flex items-center gap-2 border-b border-white/[0.04] px-5 py-3">
                   <div className="flex gap-1.5">

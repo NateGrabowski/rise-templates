@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useReducedMotion } from "motion/react";
+import { usePerformanceMode } from "@/components/providers/PerformanceProvider";
 import { cn } from "@/lib/utils";
 import { TextAnimate } from "@/components/ui/text-animate";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
@@ -23,29 +24,36 @@ export function CTAFinal({
   ctaHref = "/contact",
 }: CTAFinalProps) {
   const shouldReduceMotion = useReducedMotion();
+  const { isLite } = usePerformanceMode();
 
   return (
     <section className="relative overflow-hidden bg-surface-900 px-4 py-24 sm:px-6 lg:px-8">
       {/* Animated grid background */}
-      <AnimatedGridPattern
-        numSquares={30}
-        maxOpacity={0.15}
-        duration={3}
-        repeatDelay={1}
-        className={cn(
-          "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
-          "fill-brand-500/20 stroke-brand-500/10",
-        )}
-      />
+      {!isLite && (
+        <AnimatedGridPattern
+          numSquares={30}
+          maxOpacity={0.15}
+          duration={3}
+          repeatDelay={1}
+          className={cn(
+            "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
+            "fill-brand-500/20 stroke-brand-500/10",
+          )}
+        />
+      )}
 
       {/* Falling meteors */}
-      {!shouldReduceMotion && (
+      {!shouldReduceMotion && !isLite && (
         <Meteors number={12} minDuration={3} maxDuration={8} />
       )}
 
       {/* Ambient glow */}
-      <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-500/[0.08] blur-[100px]" />
-      <div className="absolute bottom-0 right-1/4 h-48 w-48 rounded-full bg-cyan-400/[0.06] blur-3xl" />
+      {!isLite && (
+        <>
+          <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-500/[0.08] blur-[100px]" />
+          <div className="absolute bottom-0 right-1/4 h-48 w-48 rounded-full bg-cyan-400/[0.06] blur-3xl" />
+        </>
+      )}
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-3xl text-center">

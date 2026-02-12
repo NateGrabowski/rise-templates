@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useReducedMotion } from "motion/react";
+import { usePerformanceMode } from "@/components/providers/PerformanceProvider";
 import { cn } from "@/lib/utils";
 import { TextAnimate } from "@/components/ui/text-animate";
 import { BlurFade } from "@/components/magicui/blur-fade";
@@ -22,7 +23,14 @@ interface HeroProps {
   className?: string;
 }
 
-function HeroBackground({ bg }: { bg: BackgroundType }) {
+function HeroBackground({
+  bg,
+  isLite,
+}: {
+  bg: BackgroundType;
+  isLite: boolean;
+}) {
+  if (isLite) return null;
   switch (bg) {
     case "beams":
       return <BackgroundBeams />;
@@ -47,36 +55,47 @@ export function Hero({
   className,
 }: HeroProps) {
   const shouldReduceMotion = useReducedMotion();
+  const { isLite } = usePerformanceMode();
   // Backward compat: gradient=true maps to "beams"
   const bg: BackgroundType = background ?? (gradient ? "beams" : "none");
   const hasGradient = bg !== "none";
 
   if (bg === "lamp") {
+    const lampContent = (
+      <>
+        <h1 className="font-display text-5xl font-extrabold tracking-[-0.04em] text-gradient-hero sm:text-6xl lg:text-7xl xl:text-8xl">
+          {shouldReduceMotion ? (
+            title
+          ) : (
+            <TextAnimate animation="slideUp" by="word" as="span">
+              {title}
+            </TextAnimate>
+          )}
+        </h1>
+        {subtitle && (
+          <BlurFade delay={0.4}>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-lg font-light leading-relaxed text-white/70 sm:text-xl">
+              {subtitle}
+            </p>
+          </BlurFade>
+        )}
+        {children && (
+          <BlurFade delay={0.6}>
+            <div className="mt-10">{children}</div>
+          </BlurFade>
+        )}
+      </>
+    );
+
     return (
       <section className={cn("relative overflow-hidden", className)}>
-        <Lamp>
-          <h1 className="font-display text-5xl font-extrabold tracking-[-0.04em] text-gradient-hero sm:text-6xl lg:text-7xl xl:text-8xl">
-            {shouldReduceMotion ? (
-              title
-            ) : (
-              <TextAnimate animation="slideUp" by="word" as="span">
-                {title}
-              </TextAnimate>
-            )}
-          </h1>
-          {subtitle && (
-            <BlurFade delay={0.4}>
-              <p className="mx-auto mt-6 max-w-2xl text-center text-lg font-light leading-relaxed text-white/70 sm:text-xl">
-                {subtitle}
-              </p>
-            </BlurFade>
-          )}
-          {children && (
-            <BlurFade delay={0.6}>
-              <div className="mt-10">{children}</div>
-            </BlurFade>
-          )}
-        </Lamp>
+        {isLite ? (
+          <div className="flex min-h-[60vh] flex-col items-center justify-center bg-gradient-to-b from-surface-900 via-brand-950/50 to-surface-900 px-4 py-24 text-center">
+            {lampContent}
+          </div>
+        ) : (
+          <Lamp>{lampContent}</Lamp>
+        )}
       </section>
     );
   }
@@ -92,7 +111,7 @@ export function Hero({
       )}
     >
       {/* Ambient gradient layers */}
-      {hasGradient && (
+      {hasGradient && !isLite && (
         <>
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--color-brand-500)_0%,_transparent_50%)] opacity-15" />
           <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-cyan-400/10 blur-3xl" />
@@ -101,7 +120,7 @@ export function Hero({
       )}
 
       {/* Dynamic background effect */}
-      <HeroBackground bg={bg} />
+      <HeroBackground bg={bg} isLite={isLite} />
 
       <div className="relative mx-auto max-w-4xl text-center">
         <h1

@@ -15,6 +15,7 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NAV_LINKS } from "@/lib/constants";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { PerformanceToggle } from "@/components/providers/PerformanceToggle";
 import { Button } from "@/components/ui/button";
 
 export function Navbar() {
@@ -93,6 +94,7 @@ export function Navbar() {
         </LayoutGroup>
 
         <div className="hidden items-center gap-2 md:flex">
+          <PerformanceToggle />
           <ThemeToggle />
           <Link href="/dashboard">
             <Button className="h-9 rounded-lg bg-gradient-to-r from-brand-600 to-brand-500 px-4 text-sm font-medium text-white hover:from-brand-500 hover:to-brand-400">
@@ -103,6 +105,7 @@ export function Navbar() {
 
         {/* Mobile controls */}
         <div className="flex items-center gap-2 md:hidden">
+          <PerformanceToggle />
           <ThemeToggle />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}

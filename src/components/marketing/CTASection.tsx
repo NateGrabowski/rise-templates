@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useReducedMotion } from "motion/react";
+import { usePerformanceMode } from "@/components/providers/PerformanceProvider";
 import { cn } from "@/lib/utils";
 import { TextAnimate } from "@/components/ui/text-animate";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
@@ -22,14 +23,19 @@ export function CTASection({
   ctaHref = "/contact",
 }: CTASectionProps) {
   const shouldReduceMotion = useReducedMotion();
+  const { isLite } = usePerformanceMode();
 
   return (
     <InView direction="up" duration={0.6}>
       <section className="relative overflow-hidden bg-gradient-to-r from-brand-700 via-brand-600 to-brand-900 px-4 py-20 sm:px-6 lg:px-8">
         <RetroGrid opacity={0.15} darkLineColor="#3b82f6" />
 
-        <div className="absolute top-10 left-1/4 h-64 w-64 rounded-full bg-white/5 blur-3xl" />
-        <div className="absolute bottom-10 right-1/4 h-48 w-48 rounded-full bg-cyan-400/10 blur-3xl" />
+        {!isLite && (
+          <>
+            <div className="absolute top-10 left-1/4 h-64 w-64 rounded-full bg-white/5 blur-3xl" />
+            <div className="absolute bottom-10 right-1/4 h-48 w-48 rounded-full bg-cyan-400/10 blur-3xl" />
+          </>
+        )}
 
         <div className="relative mx-auto max-w-3xl text-center">
           <h2
