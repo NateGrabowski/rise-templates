@@ -6,7 +6,6 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from "react";
 import { MotionConfig } from "motion/react";
@@ -15,9 +14,13 @@ const STORAGE_KEY = "performance-mode";
 
 function detectInitialMode(): boolean {
   if (typeof window === "undefined") return false;
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored === "lite") return true;
-  if (stored === "full") return false;
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === "lite") return true;
+    if (stored === "full") return false;
+  } catch {
+    // localStorage may be restricted by Group Policy in VDI environments
+  }
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
@@ -41,27 +44,41 @@ export function PerformanceProvider({
   children: React.ReactNode;
 }) {
   const [isLite, setIsLite] = useState(detectInitialMode);
-  const mountedRef = useRef(false);
+  const [mounted, setMounted] = useState(false);
 
-  // Sync data attribute and localStorage on mount and whenever isLite changes
+  // Hydration guard: must re-render after mount to expose real isLite value (same pattern as next-themes)
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => setMounted(true), []);
+
+  // Sync data attribute and localStorage whenever isLite changes
   useEffect(() => {
-    mountedRef.current = true;
     document.documentElement.setAttribute(
       "data-performance",
       isLite ? "lite" : "full",
     );
-    localStorage.setItem(STORAGE_KEY, isLite ? "lite" : "full");
+    try {
+      localStorage.setItem(STORAGE_KEY, isLite ? "lite" : "full");
+    } catch {
+      // localStorage may be restricted by Group Policy in VDI environments
+    }
   }, [isLite]);
 
   const toggleMode = useCallback(() => {
     setIsLite((prev) => !prev);
   }, []);
 
-  const value = useMemo(() => ({ isLite, toggleMode }), [isLite, toggleMode]);
+  // Before mount, always report isLite=false to match SSR output (prevents hydration mismatch).
+  // The CSS layer ([data-performance="lite"]) still hides heavy visuals immediately via useEffect.
+  const exposedIsLite = mounted ? isLite : false;
+
+  const value = useMemo(
+    () => ({ isLite: exposedIsLite, toggleMode }),
+    [exposedIsLite, toggleMode],
+  );
 
   return (
     <PerformanceContext.Provider value={value}>
-      <MotionConfig reducedMotion={isLite ? "always" : "user"}>
+      <MotionConfig reducedMotion={exposedIsLite ? "always" : "user"}>
         {children}
       </MotionConfig>
     </PerformanceContext.Provider>

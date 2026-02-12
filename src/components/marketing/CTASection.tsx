@@ -28,7 +28,7 @@ export function CTASection({
   return (
     <InView direction="up" duration={0.6}>
       <section className="relative overflow-hidden bg-gradient-to-r from-brand-700 via-brand-600 to-brand-900 px-4 py-20 sm:px-6 lg:px-8">
-        <RetroGrid opacity={0.15} darkLineColor="#3b82f6" />
+        {!isLite && <RetroGrid opacity={0.15} darkLineColor="#3b82f6" />}
 
         {!isLite && (
           <>

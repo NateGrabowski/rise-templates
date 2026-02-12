@@ -6,47 +6,17 @@ import { Map, BarChart3, Activity, Shield, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { usePerformanceMode } from "@/components/providers/PerformanceProvider";
 import { cn } from "@/lib/utils";
+import { SHOWCASE_FEATURES } from "@/lib/constants";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { SectionHeading } from "@/components/motion";
 import { PreviewContent } from "@/components/marketing/feature-previews";
 
-/* ── Feature Data ─────────────────────────────── */
-
-const FEATURES = [
-  {
-    title: "Regional Command Map",
-    desc: "Interactive status across all 5 CONUS regions. Drill from national overview to state-level detail in one click.",
-    icon: Map,
-    accent: "#3b82f6",
-    accentLight: "#60a5fa",
-    iconClass: "bg-blue-500/15 text-blue-400",
-  },
-  {
-    title: "Analytics & Reports",
-    desc: "Pipeline metrics, fill rates, trend analysis. Export to Power BI or download executive briefings as PDF.",
-    icon: BarChart3,
-    accent: "#22d3ee",
-    accentLight: "#67e8f9",
-    iconClass: "bg-cyan-500/15 text-cyan-400",
-  },
-  {
-    title: "Real-Time Pipeline",
-    desc: "Track every position from requisition through onboarding. Automated status updates and recruiter assignment.",
-    icon: Activity,
-    accent: "#10b981",
-    accentLight: "#34d399",
-    iconClass: "bg-emerald-500/15 text-emerald-400",
-  },
-  {
-    title: "Security & Training",
-    desc: "Monitor clearance processing timelines, schedule orientations, and track training compliance across all regions.",
-    icon: Shield,
-    accent: "#8b5cf6",
-    accentLight: "#a78bfa",
-    iconClass: "bg-violet-500/15 text-violet-400",
-  },
-];
+const ICON_MAP = { Map, BarChart3, Activity, Shield } as const;
+const FEATURES = SHOWCASE_FEATURES.map((f) => ({
+  ...f,
+  icon: ICON_MAP[f.icon],
+}));
 
 /* ── Component ────────────────────────────────── */
 

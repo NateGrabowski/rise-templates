@@ -260,6 +260,41 @@ export const TRUSTED_BY = [
   "TRIDENT CONSULTING",
 ] as const;
 
+export const SHOWCASE_FEATURES = [
+  {
+    title: "Regional Command Map",
+    desc: "Interactive status across all 5 CONUS regions. Drill from national overview to state-level detail in one click.",
+    icon: "Map" as const,
+    accent: "#3b82f6",
+    accentLight: "#60a5fa",
+    iconClass: "bg-blue-500/15 text-blue-400",
+  },
+  {
+    title: "Analytics & Reports",
+    desc: "Pipeline metrics, fill rates, trend analysis. Export to Power BI or download executive briefings as PDF.",
+    icon: "BarChart3" as const,
+    accent: "#22d3ee",
+    accentLight: "#67e8f9",
+    iconClass: "bg-cyan-500/15 text-cyan-400",
+  },
+  {
+    title: "Real-Time Pipeline",
+    desc: "Track every position from requisition through onboarding. Automated status updates and recruiter assignment.",
+    icon: "Activity" as const,
+    accent: "#10b981",
+    accentLight: "#34d399",
+    iconClass: "bg-emerald-500/15 text-emerald-400",
+  },
+  {
+    title: "Security & Training",
+    desc: "Monitor clearance processing timelines, schedule orientations, and track training compliance across all regions.",
+    icon: "Shield" as const,
+    accent: "#8b5cf6",
+    accentLight: "#a78bfa",
+    iconClass: "bg-violet-500/15 text-violet-400",
+  },
+];
+
 export const FOOTER_RESOURCES = [
   { label: "Documentation", href: "#" },
   { label: "API Reference", href: "#" },

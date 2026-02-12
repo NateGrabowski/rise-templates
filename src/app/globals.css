@@ -389,3 +389,9 @@
 [data-performance="lite"] .glow-brand {
   box-shadow: none;
 }
+
+/* Remove GPU promotion (counterproductive in software rendering) */
+[data-performance="lite"] .transform-gpu {
+  transform: none;
+  will-change: auto;
+}
