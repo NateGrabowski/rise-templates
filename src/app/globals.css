@@ -306,3 +306,86 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ─── Performance mode: VDI/AVD optimization ─── */
+
+/* Glass panels: replace backdrop-blur with solid backgrounds */
+[data-performance="lite"] .glass-panel {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(241, 245, 249, 0.92);
+}
+[data-performance="lite"].dark .glass-panel,
+.dark [data-performance="lite"] .glass-panel {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(15, 23, 42, 0.88);
+}
+
+[data-performance="lite"] .glass-panel-md {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(241, 245, 249, 0.95);
+  box-shadow: none;
+}
+[data-performance="lite"].dark .glass-panel-md,
+.dark [data-performance="lite"] .glass-panel-md {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(15, 23, 42, 0.92);
+  box-shadow: none;
+}
+
+[data-performance="lite"] .glass-panel-strong {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(241, 245, 249, 0.97);
+  box-shadow: none;
+}
+[data-performance="lite"].dark .glass-panel-strong,
+.dark [data-performance="lite"] .glass-panel-strong {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(15, 23, 42, 0.95);
+  box-shadow: none;
+}
+
+/* Kill ALL backdrop-blur (catches direct usage in components) */
+[data-performance="lite"] [style*="backdrop-filter"],
+[data-performance="lite"] .backdrop-blur-sm,
+[data-performance="lite"] .backdrop-blur-md,
+[data-performance="lite"] .backdrop-blur-lg,
+[data-performance="lite"] .backdrop-blur-xl,
+[data-performance="lite"] .backdrop-blur-2xl,
+[data-performance="lite"] .backdrop-blur-3xl {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Kill ambient blur glows (decorative blur-[Npx] divs) */
+[data-performance="lite"] [class*="blur-["],
+[data-performance="lite"] .blur-3xl,
+[data-performance="lite"] .blur-2xl,
+[data-performance="lite"] .blur-xl {
+  filter: none !important;
+}
+
+/* Kill CSS animations + transitions */
+[data-performance="lite"] *,
+[data-performance="lite"] *::before,
+[data-performance="lite"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+/* Content visibility for below-fold sections */
+[data-performance="lite"] section + section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+/* Remove glow effects */
+[data-performance="lite"] .glow-brand {
+  box-shadow: none;
+}

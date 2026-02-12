@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { PerformanceProvider } from "@/components/providers/PerformanceProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -37,7 +38,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} ${outfit.variable} flex min-h-screen flex-col font-sans antialiased`}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <PerformanceProvider>{children}</PerformanceProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
