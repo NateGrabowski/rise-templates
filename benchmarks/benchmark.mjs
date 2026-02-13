@@ -20,11 +20,12 @@ const RESULTS_DIR = resolve(__dirname, "results");
 
 function parseArgs() {
   const args = process.argv.slice(2);
-  const config = { port: 3001, iterations: 5, headed: false };
+  const config = { port: 3001, iterations: 5, headed: false, path: "/" };
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--port") config.port = parseInt(args[++i]);
     if (args[i] === "--iterations") config.iterations = parseInt(args[++i]);
     if (args[i] === "--headed") config.headed = true;
+    if (args[i] === "--path") config.path = args[++i];
   }
   return config;
 }
@@ -215,7 +216,7 @@ async function stopTracing(cdp, outputPath) {
 
 // ─── Single Iteration ───────────────────────────────────────────────────────
 
-async function runIteration(browser, port, mode, captureTrace) {
+async function runIteration(browser, port, mode, captureTrace, config = { path: "/" }) {
   const context = await browser.newContext({
     viewport: { width: 1920, height: 1080 },
   });
@@ -225,7 +226,7 @@ async function runIteration(browser, port, mode, captureTrace) {
   await cdp.send("Performance.enable");
 
   // Navigate and set mode
-  await page.goto(`http://localhost:${port}`, { waitUntil: "networkidle" });
+  await page.goto(`http://localhost:${port}${config.path}`, { waitUntil: "domcontentloaded" });
 
   await page.evaluate((m) => {
     document.documentElement.setAttribute("data-performance", m);
@@ -235,7 +236,7 @@ async function runIteration(browser, port, mode, captureTrace) {
   }, mode);
 
   // Reload for clean metrics
-  await page.reload({ waitUntil: "networkidle" });
+  await page.reload({ waitUntil: "domcontentloaded" });
   await page.waitForTimeout(1000);
 
   // Start trace on first iteration
@@ -446,7 +447,7 @@ function generateReport(full, lite, fullSd, liteSd, config) {
   let md = `# RISE Performance Benchmark Report\n\n`;
   md += `**Date:** ${now}\n`;
   md += `**Environment:** Headless Chromium (no GPU)\n`;
-  md += `**URL:** http://localhost:${config.port}\n`;
+  md += `**URL:** http://localhost:${config.port}${config.path}\n`;
   md += `**Iterations:** ${config.iterations} (+ 1 warmup)\n`;
   md += `**Viewport:** 1920x1080\n\n`;
 
@@ -531,6 +532,7 @@ async function main() {
   console.log("RISE Performance Benchmark");
   console.log(`   Port: ${config.port}`);
   console.log(`   Iterations: ${config.iterations}`);
+  console.log(`   Path: ${config.path}`);
   console.log(`   Mode: ${config.headed ? "headed" : "headless"}\n`);
 
   // Check server
@@ -566,9 +568,9 @@ async function main() {
   // Warmup iteration (not measured — primes browser JIT and page caches)
   console.log("  Warmup iteration (not measured):");
   console.log("    Full mode...");
-  await runIteration(browser, config.port, "full", false);
+  await runIteration(browser, config.port, "full", false, config);
   console.log("    Lite mode...");
-  await runIteration(browser, config.port, "lite", false);
+  await runIteration(browser, config.port, "lite", false, config);
   console.log("    Warmup complete\n");
 
   // Measured iterations
@@ -578,11 +580,11 @@ async function main() {
     console.log(`  Iteration ${i + 1}/${config.iterations}:`);
 
     console.log("    Full mode...");
-    const fullResult = await runIteration(browser, config.port, "full", isTraceRun);
+    const fullResult = await runIteration(browser, config.port, "full", isTraceRun, config);
     fullResults.push(fullResult);
 
     console.log("    Lite mode...");
-    const liteResult = await runIteration(browser, config.port, "lite", isTraceRun);
+    const liteResult = await runIteration(browser, config.port, "lite", isTraceRun, config);
     liteResults.push(liteResult);
 
     console.log("    Done\n");

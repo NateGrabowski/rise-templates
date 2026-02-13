@@ -12,6 +12,33 @@ import { MotionConfig } from "motion/react";
 
 const STORAGE_KEY = "performance-mode";
 
+function detectSoftwareRendering(): boolean {
+  try {
+    const canvas = document.createElement("canvas");
+    const gl =
+      canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    if (!gl) return false;
+    const debugInfo = (gl as WebGLRenderingContext).getExtension(
+      "WEBGL_debug_renderer_info",
+    );
+    if (!debugInfo) return false;
+    const renderer = (gl as WebGLRenderingContext).getParameter(
+      debugInfo.UNMASKED_RENDERER_WEBGL,
+    );
+    const softwareRenderers = [
+      "swiftshader",
+      "llvmpipe",
+      "microsoft basic",
+      "software rasterizer",
+    ];
+    return softwareRenderers.some((sr) =>
+      (renderer as string).toLowerCase().includes(sr),
+    );
+  } catch {
+    return false;
+  }
+}
+
 function detectInitialMode(): boolean {
   if (typeof window === "undefined") return false;
   try {
@@ -21,6 +48,8 @@ function detectInitialMode(): boolean {
   } catch {
     // localStorage may be restricted by Group Policy in VDI environments
   }
+  // WebGL software renderer is the strongest VDI detection signal
+  if (detectSoftwareRendering()) return true;
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 

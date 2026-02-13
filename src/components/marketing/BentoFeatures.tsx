@@ -7,6 +7,7 @@ import { BlurFade } from "@/components/magicui/blur-fade";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { MagicCard } from "@/components/ui/magic-card";
 import { SectionHeading } from "@/components/motion";
+import { usePerformanceMode } from "@/components/providers/PerformanceProvider";
 
 /* ── SVG Mini Visualizations ─────────────────────────────── */
 
@@ -183,6 +184,7 @@ const ACCENT_COLORS = {
 /* ── Component ────────────────────────────────────────────── */
 
 export function BentoFeatures() {
+  const { isLite } = usePerformanceMode();
   return (
     <section className="px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
@@ -209,7 +211,7 @@ export function BentoFeatures() {
                     gradientColor="#1a1f2e"
                     gradientOpacity={0.2}
                   >
-                    {card.wide && (
+                    {card.wide && !isLite && (
                       <BorderBeam
                         colorFrom={colors.beam[0]}
                         colorTo={colors.beam[1]}

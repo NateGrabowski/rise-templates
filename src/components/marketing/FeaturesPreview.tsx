@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { SectionHeading } from "@/components/motion";
+import { usePerformanceMode } from "@/components/providers/PerformanceProvider";
 
 const FEATURES = [
   {
@@ -148,6 +149,7 @@ function MiniPipeline() {
 const VISUALS = { map: MiniMap, chart: MiniChart, pipeline: MiniPipeline };
 
 export function FeaturesPreview() {
+  const { isLite } = usePerformanceMode();
   return (
     <section className="px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
@@ -163,13 +165,15 @@ export function FeaturesPreview() {
             return (
               <BlurFade key={feature.title} delay={0.1 + i * 0.12} inView>
                 <div className="group relative h-full overflow-hidden rounded-2xl border border-white/[0.08] bg-surface-850/50 p-6 transition-all duration-500 hover:border-white/15 hover:bg-surface-800/60">
-                  <BorderBeam
-                    colorFrom="#3b82f6"
-                    colorTo="#22d3ee"
-                    size={100}
-                    duration={6}
-                    borderWidth={1.5}
-                  />
+                  {!isLite && (
+                    <BorderBeam
+                      colorFrom="#3b82f6"
+                      colorTo="#22d3ee"
+                      size={100}
+                      duration={6}
+                      borderWidth={1.5}
+                    />
+                  )}
 
                   {/* Gradient backdrop */}
                   <div

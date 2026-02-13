@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Hero } from "@/components/marketing/Hero";
 import { PricingCards } from "@/components/marketing/PricingCards";
 import { PricingFAQ } from "@/components/marketing/PricingFAQ";
-import { RetroGrid } from "@/components/magicui/retro-grid";
+import { ConditionalRetroGrid } from "@/components/marketing/ConditionalRetroGrid";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export default function PricingPage() {
 
       {/* Bottom CTA */}
       <section className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
-        <RetroGrid className="opacity-30" />
+        <ConditionalRetroGrid className="opacity-30" />
         <div className="relative mx-auto max-w-2xl text-center">
           <div className="glass-panel-md p-12">
             <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">

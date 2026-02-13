@@ -7,6 +7,7 @@ import { PRICING_TIERS } from "@/lib/constants";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
+import { usePerformanceMode } from "@/components/providers/PerformanceProvider";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { AnimatedCounter } from "@/components/motion/AnimatedCounter";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ function parsePrice(price: string): number | null {
 }
 
 export function PricingCards() {
+  const { isLite } = usePerformanceMode();
   return (
     <section className="px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-5xl items-start gap-8 lg:grid-cols-3">
@@ -33,12 +35,14 @@ export function PricingCards() {
                 {tier.highlighted && (
                   <>
                     <div className="absolute inset-x-0 top-0 h-1 w-full bg-gradient-to-r from-brand-500 to-cyan-400" />
-                    <BorderBeam
-                      colorFrom="#3b82f6"
-                      colorTo="#22d3ee"
-                      duration={8}
-                      size={80}
-                    />
+                    {!isLite && (
+                      <BorderBeam
+                        colorFrom="#3b82f6"
+                        colorTo="#22d3ee"
+                        duration={8}
+                        size={80}
+                      />
+                    )}
                   </>
                 )}
 

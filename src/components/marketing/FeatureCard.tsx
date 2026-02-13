@@ -12,6 +12,7 @@ import {
 import { cn } from "@/lib/utils";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { InView } from "@/components/motion/InView";
+import { usePerformanceMode } from "@/components/providers/PerformanceProvider";
 
 const ICON_MAP = {
   Map,
@@ -37,6 +38,7 @@ function FeatureCardInner({
   className,
 }: Omit<FeatureCardProps, "animated">) {
   const [hovered, setHovered] = useState(false);
+  const { isLite } = usePerformanceMode();
   const Icon = ICON_MAP[icon as keyof typeof ICON_MAP] ?? Activity;
 
   return (
@@ -48,7 +50,7 @@ function FeatureCardInner({
         className,
       )}
     >
-      {hovered && (
+      {hovered && !isLite && (
         <BorderBeam
           colorFrom="#3b82f6"
           colorTo="#22d3ee"

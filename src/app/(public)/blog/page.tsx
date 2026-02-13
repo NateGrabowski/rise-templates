@@ -7,6 +7,7 @@ import { BLOG_POSTS } from "@/lib/constants";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { RetroGrid } from "@/components/magicui/retro-grid";
+import { usePerformanceMode } from "@/components/providers/PerformanceProvider";
 
 const CARD_GRADIENTS = [
   ["from-brand-500", "to-brand-700"],
@@ -19,6 +20,7 @@ const CARD_GRADIENTS = [
 const [featured, ...rest] = BLOG_POSTS;
 
 export default function BlogPage() {
+  const { isLite } = usePerformanceMode();
   return (
     <>
       <Hero
@@ -107,7 +109,7 @@ export default function BlogPage() {
 
       {/* Newsletter CTA */}
       <section className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
-        <RetroGrid className="opacity-30" />
+        {!isLite && <RetroGrid className="opacity-30" />}
         <div className="relative mx-auto max-w-xl text-center">
           <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
             Stay in the loop

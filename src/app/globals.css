@@ -386,7 +386,17 @@
 /* Remove GPU promotion (counterproductive in software rendering) */
 [data-performance="lite"] .transform-gpu {
   transform: none;
-  will-change: auto;
+}
+
+/* Kill all will-change layer promotions — zero GPU benefit in VDI */
+[data-performance="lite"] * {
+  will-change: auto !important;
+}
+
+/* Defensive scroll-behavior override */
+[data-performance="lite"],
+[data-performance="lite"] * {
+  scroll-behavior: auto !important;
 }
 
 /* CSS containment — skip subtree recalculations */
