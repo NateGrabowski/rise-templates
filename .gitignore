@@ -42,3 +42,10 @@ next-env.d.ts
 
 # misc
 temp/
+
+# playwright
+.playwright-cli/
+.playwright-mcp/
+
+# benchmark results (trace files are 10-50MB)
+benchmarks/results/
